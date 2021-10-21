@@ -4,6 +4,8 @@
 # 작성자: 최철웅
 # 내용: Console 기반의 햄버거를 판매하는 키오스크 프로그램
 
+import choice_menu
+
 # 조건
 # 사용자는 최대로 버거1개, 사이드1개, 음료1개 주문할 수 있습니다.
 
@@ -30,10 +32,10 @@ print('■■ == CNU 버거(ver.01) ==')
 print('■■ CNU 버거에 방문해주셔서 감사합니다.')
 print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
 print('□■ 메뉴')
-print('□■ 1.햄버거 세트')
-print('□■ 2.햄버거 단품')
-print('□■ 3.사이드 메뉴')
-print('□■ 4.음료')
+print('□■ 1.햄버거 세트') # 햄버거, 사이드, 음료
+print('□■ 2.햄버거 단품') # 햄버거
+print('□■ 3.사이드 메뉴') # 사이드
+print('□■ 4.음료')       # 음룍
 print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
 
 while True:
@@ -45,23 +47,40 @@ while True:
     else:
         print('# MSG: 1~4의 번호만 입력해주세요 :)')
 
+####################
+## 2.세부메뉴 선택 ##
+####################
+if menu_num == 1:    # 햄버거 세트
+    # 햄버거 단품 세부 메뉴 선택
+    # import를 사용하는 이유는 module 또는 library를 사용하기 위해서
+    choice_num = choice_menu.choice_burger()  # choice_menu.py에서 choice_burger() 함수를 호출하세요.
+    menu_save['burger'] = burger_name[choice_num]
+    price_save['burger'] = burger_price[choice_num]
 
+    # 사이드 단품 세부 메뉴 선택
+    choice_num2 = choice_menu.choice_side()
+    menu_save['side'] = side_name[choice_num2]
+    price_save['side'] = side_price[choice_num2]
 
-    print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
-    print('□■  DRINK MENU')
-    print('□■  1.코카콜라: 1,000원')
-    print('□■  2.커피: 1,200원')
-    print('□■  3.주스: 1,500원')
-    print('■■ 원하시는 메뉴의 번호를 입력해주세요.')
-    print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
-    while (True):
-        choice_num3 = int(input('>> 번호: '))
-        if choice_num3 >= 1 and choice_num3 <= 3:
-            menu_save['drink'] = drink_name[choice_num3]
-            price_save['drink'] = drink_price[choice_num3]
-            break
-        else:
-            print('# MSG: 1~3의 번호만 입력해주세요 :)')
+    # 음료 단품 세부 메뉴 선택
+    choice_num3 = choice_menu.choice_drink()
+    menu_save['drink'] = drink_name[choice_num3]
+    price_save['drink'] = drink_price[choice_num3]
+
+elif menu_num == 2:
+    choice_num = choice_menu.choice_burger()  # choice_menu.py에서 choice_burger() 함수를 호출하세요.
+    menu_save['burger'] = burger_name[choice_num]
+    price_save['burger'] = burger_price[choice_num]
+
+elif menu_num == 3:
+    choice_num2 = choice_menu.choice_side()
+    menu_save['side'] = side_name[choice_num2]
+    price_save['side'] = side_price[choice_num2]
+
+elif menu_num == 4:
+    choice_num3 = choice_menu.choice_drink()
+    menu_save['drink'] = drink_name[choice_num3]
+    price_save['drink'] = drink_price[choice_num3]
 
 # 고객 주문 완료
 print(menu_save)
